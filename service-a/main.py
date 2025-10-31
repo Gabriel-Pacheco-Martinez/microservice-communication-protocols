@@ -1,5 +1,19 @@
 # General
 import argparse
+import asyncio
+import uvicorn
+
+# Rest
+from protocols.rest_api import app
+
+
+# ====
+# REST server
+def start_rest_server():
+    config = uvicorn.Config(app, host="0.0.0.0", port=8000)
+    server = uvicorn.Server(config)
+    # server.serve()
+    server.run()
 
 
 # ====
@@ -24,8 +38,8 @@ def main():
     print(f"   Protocol: {args.protocol}")
 
     # Start the appropiate server based on protocol
+    if args.protocol == "REST":
+        start_rest_server()
     
-    
-
 if __name__ == "__main__":
     main()
