@@ -3,6 +3,8 @@ from models import User
 from database import SessionLocal
 from sqlalchemy.orm import Session
 from sqlalchemy import text
+from typing import List
+from schemas import UserOut
 
 app = FastAPI()
 router = APIRouter()
@@ -18,7 +20,7 @@ def get_db():
 
 # ====
 # Connections
-@router.get("/users")
+@router.get("/users", response_model=List[UserOut])
 def read_users(db: Session = Depends(get_db)):
     return db.query(User).all()
 
