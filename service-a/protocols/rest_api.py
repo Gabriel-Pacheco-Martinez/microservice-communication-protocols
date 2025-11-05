@@ -20,6 +20,10 @@ def get_db():
 
 # ====
 # Connections
+@app.on_event("startup")
+def startup_event():
+    print("✅ Service A is up and running on http://0.0.0.0:8000")
+
 @router.get("/users", response_model=List[UserOut])
 def read_users(db: Session = Depends(get_db)):
     return db.query(User).all()

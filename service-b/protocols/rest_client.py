@@ -13,3 +13,10 @@ class RESTClientService:
         response = requests.get(url)
         response.raise_for_status()
         return response.json()
+    
+    # Check if service A is reachable
+    def ping_server(self):
+        url = f"{self.base_url}/ping"
+        response = requests.get(url)
+        response.raise_for_status()
+        return response.json()
