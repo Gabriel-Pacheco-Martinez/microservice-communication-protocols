@@ -11,7 +11,7 @@ from config import SERVICE_A_URL
 def is_server_alive(client, retries=20, delay=2):
     for i in range(retries):
         try:
-            resp = client.ping()
+            resp = client.ping_server()
             if resp.get("db_connection") == "ok":
                 print("✅ Service A is ready!")
                 return

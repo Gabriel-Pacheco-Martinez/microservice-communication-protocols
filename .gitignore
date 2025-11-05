@@ -11,3 +11,6 @@ __pycache__/
 
 # Notes
 notes.md
+
+# Database files
+db_data_local/
