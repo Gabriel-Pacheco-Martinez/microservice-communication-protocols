@@ -1,0 +1,18 @@
+config:
+  target: "http://localhost:8080"   # Replace with your Service A URL
+  phases:
+    - duration: 60       # Run for 60 seconds
+      arrivalRate: 1     # Start 5 requests per second
+  defaults:
+    headers:
+      Content-Type: "application/json"
+
+scenarios:
+  - name: "Generic Microservice Load Test"
+    flow:
+      - get:
+          url: "/request"
+          json:
+            protocol: "REST"
+            operation: "getUsers"
+            payload:  {}
