@@ -6,7 +6,6 @@ import uvicorn
 # Rest
 from protocols.rest_api import app
 
-
 # ====
 # REST server
 def start_rest_server():
@@ -14,7 +13,6 @@ def start_rest_server():
     server = uvicorn.Server(config)
     # server.serve()
     server.run()
-
 
 # ====
 # SERVICE A: entry point

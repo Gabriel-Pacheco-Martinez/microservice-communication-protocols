@@ -1,0 +1,26 @@
+{
+  "name": "final_project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gabriel-Pacheco-Martinez/microservice-communication-protocols.git"
+  },
+  "keywords": [],
+  "author": "Gabriel Pacheco Martinez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gabriel-Pacheco-Martinez/microservice-communication-protocols/issues"
+  },
+  "homepage": "https://github.com/Gabriel-Pacheco-Martinez/microservice-communication-protocols#readme",
+  "description": "",
+  "devDependencies": {
+    "artillery": "^2.0.26"
+  }
+}

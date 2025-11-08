@@ -1,58 +1,47 @@
 # General
 import argparse
 import time
+import threading
+import uvicorn
+import requests
 
 # Rest
 from protocols.rest_client import RESTClientService
 from config import SERVICE_A_URL
 
+# Server
+from server import app
+
 # ====
-# Check if server is alive
-def is_server_alive(client, retries=20, delay=2):
+# Wait for Service A to be ready
+def wait_for_service_a(url, retries=20, delay=2):
     for i in range(retries):
         try:
-            resp = client.ping_server()
-            if resp.get("db_connection") == "ok":
+            resp = requests.get(f"{url}/ping", timeout=2)
+            if resp.status_code == 200:
                 print("✅ Service A is ready!")
-                return
-        except Exception as e:
+                return True
+        except Exception:
             print(f"Waiting for Service A... ({i+1}/{retries})")
             time.sleep(delay)
     raise Exception("❌ Service A did not start in time")
 
 # ====
-# REST client
-def start_rest_client():
-    client = RESTClientService(SERVICE_A_URL)
-    is_server_alive(client)
-    users = client.get_users()
-    print(f"✅ Found {len(users)} users")
-    for user in users:
-        print(f"   - {user['name']} ({user['email']})")
+# Artillery listener
+def start_service_b_server():
+    config = uvicorn.Config(app, host="0.0.0.0", port=8080)
+    server = uvicorn.Server(config)
+    # server.serve()
+    server.run()
 
 # ====
 # SERVICE B: entry point
 def main():
-    parser = argparse.ArgumentParser(
-        description="Service B - Data Consumer with Multiple Protocol Clients"
-    )
-    parser.add_argument(
-        "--protocol",
-        type=str,
-        choices=["REST", "gRPC", "GraphQL"],
-        default="REST",
-        help="Communication protocol to use (default: REST)"
-    )
-    
-    args = parser.parse_args()
-    
-    print("=" * 60)
-    print(f"🔧 Service B Configuration")
-    print(f"   Protocol: {args.protocol}")
-    
-    # Run the appropriate client test
-    if args.protocol == "REST":
-        start_rest_client()
+    # Check Service A before starting Service B
+    wait_for_service_a(SERVICE_A_URL)
+
+    # Start Service B
+    start_service_b_server()
 
 if __name__ == "__main__":
     main()

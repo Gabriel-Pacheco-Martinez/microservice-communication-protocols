@@ -10,7 +10,7 @@ config:
 scenarios:
   - name: "Generic Microservice Load Test"
     flow:
-      - get:
+      - post:
           url: "/request"
           json:
             protocol: "REST"

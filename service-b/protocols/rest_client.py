@@ -1,6 +1,5 @@
 # clients/rest_client.py
 import requests
-from config import SERVICE_A_URL
 
 class RESTClientService:
     # Class constructor
