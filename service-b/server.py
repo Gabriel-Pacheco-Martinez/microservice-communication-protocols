@@ -6,10 +6,19 @@ import time
 from protocols.rest_client import RESTClientService
 from config import SERVICE_A_URL
 
+# Prometheus Monitoring
+from prometheus_fastapi_instrumentator import Instrumentator
+
+
 # ====
 # Server B
 app = FastAPI()
 router = APIRouter()
+
+# ====
+# Prometheus
+instrumentator = Instrumentator()
+instrumentator.instrument(app).expose(app) 
 
 # ====
 # Health check endpoint
@@ -40,9 +49,20 @@ async def handle_request(request: Request):
                 for user in users:
                     print(f"   - {user['name']} ({user['email']})")
                 return {"users": users}
+            elif operation == "addUser":
+                users = client.add_user(payload)
+                for user in users:
+                    print(f"   - {user['name']} ({user['email']})")
+                return {"users": users}
             else:
                 return {"error": f"Unknown REST operation: {operation}"}
             
+        # ====
+        # GraphQL
+        elif protocol == "GraphQL":
+            f = 3
+
+        # ====
         # Unknown
         else:
             return {"error": f"Unknown protocol: {protocol}"}

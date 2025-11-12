@@ -12,6 +12,12 @@ class RESTClientService:
         response = requests.get(url)
         response.raise_for_status()
         return response.json()
+
+    def add_user(self, payload):
+        url = f"{self.base_url}/users"
+        response = requests.post(url, json=payload)
+        response.raise_for_status()
+        return response.json()
     
     # Check if service A is reachable
     def ping_server(self):

@@ -1,7 +1,7 @@
 config:
   target: "http://localhost:8080"   # Replace with your Service A URL
   phases:
-    - duration: 60       # Run for 60 seconds
+    - duration: 30       # Run for 60 seconds
       arrivalRate: 1     # Start 5 requests per second
   defaults:
     headers:
@@ -9,6 +9,7 @@ config:
 
 scenarios:
   - name: "Generic Microservice Load Test"
+    weight: 3
     flow:
       - post:
           url: "/request"
@@ -16,3 +17,15 @@ scenarios:
             protocol: "REST"
             operation: "getUsers"
             payload:  {}
+
+  - name: "Add User Load Test"
+    weight: 1
+    flow:
+      - post:
+          url: "/request"
+          json:
+            protocol: "REST"
+            operation: "addUser"
+            payload:
+              name: "Charlie"
+              email: "charlie@example.com"
