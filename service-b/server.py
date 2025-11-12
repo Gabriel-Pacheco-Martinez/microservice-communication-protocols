@@ -4,6 +4,7 @@ import time
 
 # Mine
 from protocols.rest_client import RESTClientService
+from protocols.graphql_client import GraphQLClientService
 from config import SERVICE_A_URL
 
 # Prometheus Monitoring
@@ -46,21 +47,29 @@ async def handle_request(request: Request):
                 client.ping_server()
             elif operation == "getUsers":
                 users = client.get_users()
-                for user in users:
-                    print(f"   - {user['name']} ({user['email']})")
+                print(f"✅ REST getUsers -> {users}")
                 return {"users": users}
             elif operation == "addUser":
                 users = client.add_user(payload)
-                for user in users:
-                    print(f"   - {user['name']} ({user['email']})")
-                return {"users": users}
+                print(f"✅ REST addUser -> {user}")
+                return {"user": user}
             else:
                 return {"error": f"Unknown REST operation: {operation}"}
             
         # ====
         # GraphQL
         elif protocol == "GraphQL":
-            f = 3
+            client = GraphQLClientService(SERVICE_A_URL)
+            if operation == "getUsers":
+                users = client.get_users()
+                print(f"✅ GraphQL getUsers -> {users}")
+                return {"users": users}
+            elif operation == "addUser":
+                user = client.add_user(payload)
+                print(f"✅ GraphQL addUser -> {user}")
+                return {"user": user}
+            else:
+                return {"error": f"Unknown GraphQL operation: {operation}"}
 
         # ====
         # Unknown

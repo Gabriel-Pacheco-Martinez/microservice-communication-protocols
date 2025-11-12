@@ -17,7 +17,7 @@ from server import app
 def wait_for_service_a(url, retries=20, delay=2):
     for i in range(retries):
         try:
-            resp = requests.get(f"{url}/ping", timeout=2)
+            resp = requests.get(f"{url}/api/ping", timeout=2)
             if resp.status_code == 200:
                 print("✅ Service A is ready!")
                 return True

@@ -7,4 +7,4 @@ COPY . .
 
 EXPOSE 8000
 
-CMD ["python", "main.py", "--protocol", "REST"]
+CMD ["python", "main.py"]

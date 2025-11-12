@@ -6,8 +6,7 @@ from sqlalchemy import text
 from typing import List
 from schemas import UserOut, UserCreate
 
-app = FastAPI()
-router = APIRouter()
+rest_router = APIRouter()
 
 # ====
 # Connect to db
@@ -20,15 +19,11 @@ def get_db():
 
 # ====
 # Connections
-@app.on_event("startup")
-def startup_event():
-    print("✅ Service A is up and running on http://0.0.0.0:8000")
-
-@router.get("/users", response_model=List[UserOut])
+@rest_router.get("/users", response_model=List[UserOut])
 def read_users(db: Session = Depends(get_db)):
     return db.query(User).all()
 
-@router.post("/users", response_model=List[UserOut])
+@rest_router.post("/users", response_model=List[UserOut])
 def create_user(user: UserCreate, db: Session = Depends(get_db)):
     # Check for required fields
     if not user.name or not user.email:
@@ -40,11 +35,7 @@ def create_user(user: UserCreate, db: Session = Depends(get_db)):
     db.refresh(new_user)
     return db.query(User).all()    
 
-@app.get("/ping")
+@rest_router.get("/ping")
 def ping(db: Session = Depends(get_db)):
     result = db.execute(text("SELECT 1")).scalar()
     return {"db_connection": "ok" if result == 1 else "fail"}
-
-# ====
-# Add endpoint to router
-app.include_router(router)
