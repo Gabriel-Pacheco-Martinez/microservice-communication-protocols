@@ -1,8 +1,10 @@
 # main.py
 import uvicorn
+import threading
 from fastapi import FastAPI
 from protocols.rest_api import rest_router
 from protocols.graphql_api import graphql_app
+from protocols.grpc_api import serve_grpc
 
 # ====
 # Create unified FastAPI app
@@ -23,6 +25,10 @@ def startup_event():
     print("✅ Unified Service A running on:")
     print("   - REST:     http://0.0.0.0:8000/api")
     print("   - GraphQL:  http://0.0.0.0:8000/graphql")
+    print("   - gRPC:     port 50051")
+
+    # Start gRPC server in background thread
+    threading.Thread(target=serve_grpc, daemon=True).start()
 
 # ====
 # Main

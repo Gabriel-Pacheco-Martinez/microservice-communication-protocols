@@ -14,7 +14,7 @@ scenarios:
       - post:
           url: "/request"
           json:
-            protocol: "REST"
+            protocol: "gRPC"
             operation: "getUsers"
             payload:  {}
 
@@ -24,7 +24,7 @@ scenarios:
       - post:
           url: "/request"
           json:
-            protocol: "REST"
+            protocol: "gRPC"
             operation: "addUser"
             payload:
               name: "Charlie"

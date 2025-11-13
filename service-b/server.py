@@ -5,6 +5,7 @@ import time
 # Mine
 from protocols.rest_client import RESTClientService
 from protocols.graphql_client import GraphQLClientService
+from protocols.grpc_client import GRPCClientService
 from config import SERVICE_A_URL
 
 # Prometheus Monitoring
@@ -70,6 +71,21 @@ async def handle_request(request: Request):
                 return {"user": user}
             else:
                 return {"error": f"Unknown GraphQL operation: {operation}"}
+        
+        # ====
+        # gRPC
+        elif protocol == "gRPC":
+            client = GRPCClientService()
+            if operation == "getUsers":
+                users = client.get_users()
+                print(f"✅ gRPC getUsers -> {users}")
+                return {"users": users}
+            elif operation == "addUser":
+                user = client.add_user(payload)
+                print(f"✅ gRPC addUser -> {user}")
+                return {"user": user}
+            else:
+                return {"error": f"Unknown gRPC operation: {operation}"}
 
         # ====
         # Unknown

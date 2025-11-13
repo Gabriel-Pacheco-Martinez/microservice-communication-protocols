@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+// Define the package
+package user;
+
+// Define the services
+service UserService {
+    rpc GetUsers (Empty) returns (UsersResponse);
+    rpc AddUser (AddUserRequest) returns (UserResponse);
+}
+
+// Structure for arguments and return objects
+message Empty {}
+
+message User {
+    int32 id = 1;
+    string name = 2;
+    string email = 3;
+}
+
+message UsersResponse {
+    repeated User users = 1;
+}
+
+message AddUserRequest {
+    string name = 1;
+    string email = 2;
+}
+
+message UserResponse {
+    User user = 1;
+}
