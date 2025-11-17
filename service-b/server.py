@@ -18,11 +18,6 @@ app = FastAPI()
 router = APIRouter()
 
 # ====
-# Prometheus
-instrumentator = Instrumentator()
-instrumentator.instrument(app).expose(app) 
-
-# ====
 # Health check endpoint
 @app.get("/ping")
 def ping(request: Request):
@@ -43,6 +38,7 @@ async def handle_request(request: Request):
         # ====
         # REST
         if protocol == "REST":
+            print("📡 Using REST protocol")
             client = RESTClientService(SERVICE_A_URL)
             if operation == "ping":
                 client.ping_server()
@@ -60,6 +56,7 @@ async def handle_request(request: Request):
         # ====
         # GraphQL
         elif protocol == "GraphQL":
+            print("📡 Using GraphQL protocol")
             client = GraphQLClientService(SERVICE_A_URL)
             if operation == "getUsers":
                 users = client.get_users()
@@ -75,6 +72,7 @@ async def handle_request(request: Request):
         # ====
         # gRPC
         elif protocol == "gRPC":
+            print("📡 Using gRPC protocol")
             client = GRPCClientService()
             if operation == "getUsers":
                 users = client.get_users()
@@ -95,4 +93,12 @@ async def handle_request(request: Request):
     except Exception as e:
         print(f"❌ Error processing {protocol} request: {e}")
 
+
+# ====
+# Prometheus
+instrumentator = Instrumentator()
+instrumentator.instrument(app).expose(app) 
+
+# ====
+# Router
 app.include_router(router)

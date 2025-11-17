@@ -1,7 +1,7 @@
 config:
-  target: "http://localhost:8080"   # Replace with your Service A URL
+  target: "http://localhost:8080"   # Replace with your Service B URL
   phases:
-    - duration: 30       # Run for 60 seconds
+    - duration: 3000       # Run for 60 seconds
       arrivalRate: 1     # Start 5 requests per second
   defaults:
     headers:
@@ -14,18 +14,6 @@ scenarios:
       - post:
           url: "/request"
           json:
-            protocol: "gRPC"
+            protocol: "REST"
             operation: "getUsers"
             payload:  {}
-
-  - name: "Add User Load Test"
-    weight: 1
-    flow:
-      - post:
-          url: "/request"
-          json:
-            protocol: "gRPC"
-            operation: "addUser"
-            payload:
-              name: "Charlie"
-              email: "charlie@example.com"

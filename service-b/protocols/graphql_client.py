@@ -4,7 +4,7 @@ import requests
 class GraphQLClientService:
     # Class constructor
     def __init__(self, base_url):
-        self.base_url = base_url
+        self.base_url = f"{base_url}/graphql"
 
     # Get all users
     def get_users(self):
