@@ -18,6 +18,14 @@
   <a href="#report">Report</a>
 </p>
 
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.13.2-blue?style=flat-square" alt="Python Version">
+  <img src="https://img.shields.io/badge/Docker-27.5.1-lightblue?style=flat-square" alt="Docker Version">
+  <img src="https://img.shields.io/badge/Node.js-22.14.0-green?style=flat-square" alt="Node.js Version">
+  <img src="https://img.shields.io/badge/npm-10.9.2-orange?style=flat-square" alt="npm Version">
+  <img src="https://img.shields.io/badge/License-Apache%202.0-green?style=flat-square" alt="License">
+</p>
+
 ## About
 
 This project emulates a distributed microservices architecture to compare different communication protocols in non-monolithic systems. The services are fully containerized using **Docker** and orchestrated with **Docker Compose**.
@@ -119,5 +127,5 @@ npx artillery run tests/load/artillery.yaml
 
 ## Report
 
-For detailed analysis, methodology, performance metrics, and results, please refer to the **project report**, included in the repository. 
+For detailed analysis, methodology, performance metrics, and results, please refer to the **project report**, included in the repository. This project was done in collaboration of teammate who worked on a section of the project based on JavaScript **[Shakir Farhan](https://www.linkedin.com/in/shakirfarhan/)**
 📄 **[Project Report (PDF)](docs/report.pdf)**
