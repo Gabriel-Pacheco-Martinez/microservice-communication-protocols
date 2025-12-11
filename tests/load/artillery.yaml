@@ -1,15 +1,14 @@
 config:
   target: "http://localhost:8080"   # Replace with your Service B URL
   phases:
-    - duration: 3000       # Run for 60 seconds
-      arrivalRate: 10     # Start 5 requests per second
+    - duration: 120       # Run for 60 seconds
+      arrivalRate: 100     # Start 5 requests per second
   defaults:
     headers:
       Content-Type: "application/json"
 
 scenarios:
   - name: "Generic Microservice Load Test"
-    weight: 3
     flow:
       - post:
           url: "/request"
@@ -17,17 +16,3 @@ scenarios:
             protocol: "REST"
             operation: "getUsers"
             payload:  {}
-      - post:
-          url: "/request"
-          json:
-            protocol: "GraphQL"
-            operation: "getUsers"
-            payload:
-              query: |
-                {
-                  users {
-                    id
-                    name
-                    email
-                  }
-                }
