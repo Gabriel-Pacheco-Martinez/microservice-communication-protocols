@@ -128,4 +128,4 @@ npx artillery run tests/load/artillery.yaml
 ## Report
 
 For detailed analysis, methodology, performance metrics, and results, please refer to the **project report**, included in the repository. This project was done in collaboration of teammate who worked on a section of the project based on JavaScript **[Shakir Farhan](https://www.linkedin.com/in/shakirfarhan/)**
-📄 **[Project Report (PDF)](docs/report.pdf)**
+📄 **[Project Report (PDF)](docs/final_report.pdf)**
